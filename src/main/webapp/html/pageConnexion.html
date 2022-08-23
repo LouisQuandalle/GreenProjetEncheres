@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Connexion</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="pageListeEncheres.html">ENI-ENCHERES</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <form action="" method="POST">
+            <p> 
+                <label>Identifiant :</label>
+                <input type="text" placeholder="Entrer le nom d'utilisateur" name="username" required>
+            </p>
+            <p>
+                <label>Mot de passe :</label>
+                <input type="password" placeholder="Entrer le mot de passe" name="password" required>
+            </p>
+            <p>
+                <input type="submit" id='submit' value='Connexion'>
+                <input type="checkbox" id="rememberme" name="rememberme" value="1" />
+                <label for="rememberme">Se souvenir de moi</label>
+                <a href="">Mot de passe oublié</a>
+            </p>
+        </form>
+        <a href="pageCreerCompte.html">Créer un compte</a>
+    </main>
+
+</body>
+</html>

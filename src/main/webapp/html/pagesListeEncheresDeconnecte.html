@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Accueil</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="pageListeEncheres.html">ENI-ENCHERES</a></li>
+                <li><a href="pageCreerCompte.html">S'inscrire</a>
+                <a href="pageConnexion.html">Se connecter</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Liste des enchères</h1>
+        
+        <h3>FILTRES :</h3>
+        <form name ="article" action ="" method="get">
+            <label for="categorie">Catégories: </label>
+            <select name="categorie" size="1">
+                <option value="empty" selected="selected">-</option>
+                <option value ="informatique">Informatique</option>
+                <option value ="ameublement">Ameublement</option>
+                <option value ="vetement">Vêtements</option>
+                <option value ="sport">Sport et Loisirs</option>
+            </select>
+            <input type="text" name="nom" id="nom" placeholder="Le nom de l'article contient" size = "50" />
+            <input type="submit" name="submit" value="Recherche" />
+        </form>
+        
+        <article>
+            <img src="">
+            <h4>Titre de l'article</h4>
+            <p>Prix : xxx pts Classement : xx</p>
+            <p>Fin de l'enchère : DD/MM/AAAA</p>
+            <p>Retrait : RUE CODE POSTAL VILLE</p>
+            <p>Vendeur : NOM VENDEUR</p>
+        </article>
+
+        <article>
+            <img src="">
+            <h4>Titre de l'article</h4>
+            <p>Prix : xxx pts Classement : xx</p>
+            <p>Fin de l'enchère : DD/MM/AAAA</p>
+            <p>Retrait : RUE CODE POSTAL VILLE</p>
+            <p>Vendeur : NOM VENDEUR</p>
+        </article>
+
+    </main>
+
+</body>
+
+</html>
