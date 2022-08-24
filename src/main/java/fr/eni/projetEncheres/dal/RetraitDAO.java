@@ -3,8 +3,7 @@ package fr.eni.projetEncheres.dal;
 import fr.eni.projetEncheres.bo.Retrait;
 
 public interface RetraitDAO {
-	//Sélectionner un lieuDeretrait par le noArticle
-			public Retrait selectByNoArticle(int noArticle) throws DALException;
+			
 			
 			//Modifier les attributs d'un lieu de retrait connu en BD
 			public void update(Retrait data) throws DALException;
@@ -14,4 +13,7 @@ public interface RetraitDAO {
 			
 			//Supprimer un article
 			public void delete(int noArticle) throws DALException;
+			
+			//Sélectionner un lieuDeretrait par le noArticle
+			public Retrait selectByNoArticle(int noArticle) throws DALException;
 }

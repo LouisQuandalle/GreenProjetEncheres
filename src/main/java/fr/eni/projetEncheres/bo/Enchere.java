@@ -1,9 +1,9 @@
 package fr.eni.projetEncheres.bo;
 
-import java.time.LocalDateTime;
+import java.sql.Time;
 
 public class Enchere {
-	private LocalDateTime dateEnchere;
+	private Time dateEnchere;
 	private Integer montantEnchere;
 	private Utilisateur encherisseur;
 	private ArticleVendu articleVendu;
@@ -11,7 +11,7 @@ public class Enchere {
 	public Enchere() {
 	}
 
-	public Enchere(LocalDateTime dateEnchere, Integer montantEnchere, Utilisateur encherisseur,
+	public Enchere(Time dateEnchere, Integer montantEnchere, Utilisateur encherisseur,
 			ArticleVendu articleVendu) {
 		super();
 		this.dateEnchere = dateEnchere;
@@ -20,11 +20,11 @@ public class Enchere {
 		this.articleVendu = articleVendu;
 	}
 
-	public LocalDateTime getDateEnchere() {
+	public Time getDateEnchere() {
 		return dateEnchere;
 	}
 
-	public void setDateEnchere(LocalDateTime dateEnchere) {
+	public void setDateEnchere(Time dateEnchere) {
 		this.dateEnchere = dateEnchere;
 	}
 
