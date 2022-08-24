@@ -6,19 +6,37 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Accueil</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src="https://kit.fontawesome.com/8c94095c90.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;700&display=swap" rel="stylesheet">
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
 </head>
 
 <body>
     <header>
-        <nav>
-            <ul>
-                <li><a href="pageListeEncheres.html">ENI-ENCHERES</a></li>
-                <li><a href="pageCreerCompte.html">S'inscrire</a>
-                <a href="pageConnexion.html">Se connecter</a></li>
+        <nav class="navbar">
+            <ul class="navbar-menu">
+                <li class="navbar-item">
+                    <a href="pageListeEncheres.html" class="navbar-link"></a>
+                        <i class="fa-solid fa-house"></i> 
+                    <span class="navbar-title">ENI-ENCHÈRES</span>
+                </li>
+                <br>
+                <li class="navbar-item">
+                    <a href="pageCreerCompte.html" class="navbar-link"></a>
+                        <i class="fa-solid fa-user-plus"></i> 
+                    <span class="navbar-title">Inscription</span>
+                </li>
+                <li class="navbar-item">
+                    <a href="pageConnexion.html" class="navbar-link"></a>
+                        <i class="fa-solid fa-wifi"></i> 
+                    <span class="navbar-title">Se connecter</span>
+                </li>
             </ul>
         </nav>
     </header>
+
     <main>
         <h1>Liste des enchères</h1>
         
@@ -32,12 +50,12 @@
                 <option value ="vetement">Vêtements</option>
                 <option value ="sport">Sport et Loisirs</option>
             </select>
-            <input type="text" name="nom" id="nom" placeholder="Le nom de l'article contient" size = "50" />
+            <input type="text" name="nom" id="nom" placeholder="Le nom de l'article contient" size = "50" class="BarreRecherche"/>
             <input type="submit" name="submit" value="Recherche" />
         </form>
         
-        <article>
-            <img src="">
+        <article class="article">
+            <i class="fa-solid fa-bag-shopping" id="shop"></i>
             <h4>Titre de l'article</h4>
             <p>Prix : xxx pts Classement : xx</p>
             <p>Fin de l'enchère : DD/MM/AAAA</p>
@@ -45,8 +63,8 @@
             <p>Vendeur : NOM VENDEUR</p>
         </article>
 
-        <article>
-            <img src="">
+        <article class="article">
+            <i class="fa-solid fa-bag-shopping" id="shop"></i>
             <h4>Titre de l'article</h4>
             <p>Prix : xxx pts Classement : xx</p>
             <p>Fin de l'enchère : DD/MM/AAAA</p>
