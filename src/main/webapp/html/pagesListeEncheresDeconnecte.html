@@ -18,20 +18,23 @@
         <nav class="navbar">
             <ul class="navbar-menu">
                 <li class="navbar-item">
-                    <a href="pageListeEncheres.html" class="navbar-link"></a>
+                    <a href="pageListeEncheres.html" class="navbar-link">
                         <i class="fa-solid fa-house"></i> 
-                    <span class="navbar-title">ENI-ENCHÈRES</span>
+                        <span class="navbar-title">ENI-ENCHÈRES</span>
+                    </a>
                 </li>
                 <br>
                 <li class="navbar-item">
-                    <a href="pageCreerCompte.html" class="navbar-link"></a>
+                    <a href="pageCreerCompte.html" class="navbar-link">
                         <i class="fa-solid fa-user-plus"></i> 
-                    <span class="navbar-title">Inscription</span>
+                        <span class="navbar-title">Inscription</span>
+                    </a>
                 </li>
                 <li class="navbar-item">
-                    <a href="pageConnexion.html" class="navbar-link"></a>
+                    <a href="pageConnexion.html" class="navbar-link">
                         <i class="fa-solid fa-wifi"></i> 
-                    <span class="navbar-title">Se connecter</span>
+                        <span class="navbar-title">Se connecter</span>
+                    </a>
                 </li>
             </ul>
         </nav>
@@ -40,9 +43,9 @@
     <main>
         <h1>Liste des enchères</h1>
         
-        <h3>FILTRES :</h3>
+        <h3 class="filtres">FILTRES :</h3>
         <form name ="article" action ="" method="get">
-            <label for="categorie">Catégories: </label>
+            <label for="categorie" class="categories">Catégories: </label>
             <select name="categorie" size="1">
                 <option value="empty" selected="selected">-</option>
                 <option value ="informatique">Informatique</option>
