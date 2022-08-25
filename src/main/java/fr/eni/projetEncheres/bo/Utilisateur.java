@@ -3,18 +3,20 @@ package fr.eni.projetEncheres.bo;
 import java.util.List;
 
 public class Utilisateur {
-	private Integer noUtilisateur;
+	
+
+	private Integer no_utilisateur;
 	private String pseudo;
 	private String nom;
 	private String prenom;
 	private String email;
 	private String telephone;
 	private String rue;
-	private String codePostal;
+	private String code_postal;
 	private String ville;
-	private String motDePasse;
-	private Integer credit;
-	private boolean administrateur;
+	private String mot_de_passe;
+	private Integer credit = 0;
+	private boolean administrateur = false;
 	List<Enchere> encherit;
 	List<ArticleVendu> achete;
 	List<ArticleVendu> vend;
@@ -22,20 +24,91 @@ public class Utilisateur {
 	public Utilisateur() {
 	}
 	
-	public Utilisateur(Integer noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
-			String rue, String codePostal, String ville, String motDePasse, Integer credit, boolean administrateur,
-			List<Enchere> encherit, List<ArticleVendu> achete, List<ArticleVendu> vend) {
+	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone,
+			String rue, String codePostal, String ville) {
 		super();
-		this.noUtilisateur = noUtilisateur;
 		this.pseudo = pseudo;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.email = email;
 		this.telephone = telephone;
 		this.rue = rue;
-		this.codePostal = codePostal;
+		this.code_postal = codePostal;
 		this.ville = ville;
-		this.motDePasse = motDePasse;
+		
+		
+	}
+	
+	public Utilisateur(Integer no_utilisateur,String pseudo, String nom, String prenom, String email, String telephone,
+			String rue, String codePostal, String ville, Integer credit) {
+		super();
+		this.no_utilisateur= no_utilisateur;
+		this.pseudo = pseudo;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.telephone = telephone;
+		this.rue = rue;
+		this.code_postal = codePostal;
+		this.ville = ville;
+		this.credit = credit;
+		
+		
+	}
+	
+	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone,
+			String rue, String codePostal, String ville, String motDePasse) {
+		super();
+		this.pseudo = pseudo;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.telephone = telephone;
+		this.rue = rue;
+		this.code_postal = codePostal;
+		this.ville = ville;
+		this.mot_de_passe = motDePasse;
+		
+		
+	}
+	
+	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone,
+			String rue, String codePostal, String ville, String motDePasse, Integer credit, boolean administrateur,
+			List<Enchere> encherit, List<ArticleVendu> achete, List<ArticleVendu> vend) {
+		super();
+		this.pseudo = pseudo;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.telephone = telephone;
+		this.rue = rue;
+		this.code_postal = codePostal;
+		this.ville = ville;
+		this.mot_de_passe = motDePasse;
+		this.credit = credit;
+		this.administrateur = administrateur;
+		this.encherit = encherit;
+		this.achete = achete;
+		this.vend = vend;
+		
+		
+	}
+
+	
+	public Utilisateur(Integer noUtilisateur, String pseudo, String nom, String prenom, String email, String telephone,
+			String rue, String codePostal, String ville, String motDePasse, Integer credit, boolean administrateur,
+			List<Enchere> encherit, List<ArticleVendu> achete, List<ArticleVendu> vend) {
+		super();
+		this.no_utilisateur = noUtilisateur;
+		this.pseudo = pseudo;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.telephone = telephone;
+		this.rue = rue;
+		this.code_postal = codePostal;
+		this.ville = ville;
+		this.mot_de_passe = motDePasse;
 		this.credit = credit;
 		this.administrateur = administrateur;
 		this.encherit = encherit;
@@ -46,11 +119,11 @@ public class Utilisateur {
 	}
 
 	public Integer getNoUtilisateur() {
-		return noUtilisateur;
+		return no_utilisateur;
 	}
 
 	public void setNoUtilisateur(Integer noUtilisateur) {
-		this.noUtilisateur = noUtilisateur;
+		this.no_utilisateur = noUtilisateur;
 	}
 
 	public String getPseudo() {
@@ -102,11 +175,11 @@ public class Utilisateur {
 	}
 
 	public String getCodePostal() {
-		return codePostal;
+		return code_postal;
 	}
 
 	public void setCodePostal(String codePostal) {
-		this.codePostal = codePostal;
+		this.code_postal = codePostal;
 	}
 
 	public String getVille() {
@@ -118,11 +191,11 @@ public class Utilisateur {
 	}
 
 	public String getMotDePasse() {
-		return motDePasse;
+		return mot_de_passe;
 	}
 
 	public void setMotDePasse(String motDePasse) {
-		this.motDePasse = motDePasse;
+		this.mot_de_passe = motDePasse;
 	}
 
 	public Integer getCredit() {
@@ -163,6 +236,15 @@ public class Utilisateur {
 
 	public void setVend(List<ArticleVendu> vend) {
 		this.vend = vend;
+	}
+
+	@Override
+	public String toString() {
+		return "Utilisateur [noUtilisateur=" + no_utilisateur + ", pseudo=" + pseudo + ", nom=" + nom + ", prenom="
+				+ prenom + ", email=" + email + ", telephone=" + telephone + ", rue=" + rue + ", codePostal="
+				+ code_postal + ", ville=" + ville + ", motDePasse=" + mot_de_passe + ", credit=" + credit
+				+ ", administrateur=" + administrateur + ", encherit=" + encherit + ", achete=" + achete + ", vend="
+				+ vend + "]";
 	}
 	
 	

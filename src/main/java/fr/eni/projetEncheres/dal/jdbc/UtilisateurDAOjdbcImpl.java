@@ -6,6 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
 import fr.eni.projetEncheres.bo.Utilisateur;
 
 public class UtilisateurDAOjdbcImpl {
@@ -102,7 +105,7 @@ public class UtilisateurDAOjdbcImpl {
 			connection = null;
 			getConnection();
 			PreparedStatement stmt = null;
-			stmt = connection.prepareStatement("DELETE FROM Articles WHERE no_Utilisateur=?");
+			stmt = connection.prepareStatement("DELETE FROM UTILISATEURS WHERE no_utilisateur=?");
 			stmt.setInt(1, noUtilisateur);
 			stmt.executeUpdate();
 
@@ -123,11 +126,17 @@ public class UtilisateurDAOjdbcImpl {
 			Statement stmt = null;
 			stmt = connection.createStatement();
 
-			String sqlSelectByNoUtilisateur = "SELECT pseudo, nom, prenom, email, telephone, rue, code_postal, ville, credit FROM UTILISATEURS WHERE noUtilisateurs="
+			String sqlSelectByNoUtilisateur = "SELECT pseudo, nom, prenom, email, telephone, rue, code_postal, ville, credit FROM UTILISATEURS WHERE no_utilisateur="
 					+ noUtilisateur;
 
 			ResultSet rs = stmt.executeQuery(sqlSelectByNoUtilisateur);
 
+			if (rs.next()) {
+				utilisateur = new Utilisateur (rs.getString("pseudo"), rs.getString("nom"),
+						rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"),
+						rs.getString("rue"), rs.getString("code_postal"), rs.getString("ville"), rs.getString("credit"));
+			}
+			
 			stmt.close();
 			connection.close();
 		} catch (SQLException e) {
@@ -135,5 +144,36 @@ public class UtilisateurDAOjdbcImpl {
 		}
 
 		return utilisateur;
+	}
+	
+	public List<Utilisateur> selectAll() {
+		List<Utilisateur> liste = new ArrayList<Utilisateur>();
+		connection = null;
+		Statement stmt = null;
+
+		try {
+			getConnection();
+			stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(
+					"SELECT no_utilisateur, pseudo, nom, prenom, email, telephone, rue, code_postal, ville, credit FROM UTILISATEURS");
+
+			Utilisateur u = null;
+
+			while (rs.next()) {
+				
+				u = new Utilisateur(rs.getString("pseudo"), rs.getString("nom"),
+						rs.getString("prenom"), rs.getString("email"), rs.getString("telephone"),
+						rs.getString("rue"), rs.getString("code_postal"), rs.getString("ville"), rs.getString("credit"));
+				liste.add(u);
+			}
+			connection.close();
+			stmt.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+
+		}
+
+		return liste;
 	}
 }
