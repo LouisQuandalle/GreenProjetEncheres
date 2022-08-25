@@ -11,6 +11,26 @@ public class Enchere {
 	public Enchere() {
 	}
 
+	public Enchere(Time dateEnchere, Integer montantEnchere, Utilisateur encherisseur) {
+		super();
+		this.dateEnchere = dateEnchere;
+		this.montantEnchere = montantEnchere;
+		this.encherisseur = encherisseur;
+	}
+
+	public Enchere(Time dateEnchere, Integer montantEnchere, ArticleVendu articleVendu) {
+		super();
+		this.dateEnchere = dateEnchere;
+		this.montantEnchere = montantEnchere;
+		this.articleVendu = articleVendu;
+	}
+
+	public Enchere(Time dateEnchere, Integer montantEnchere) {
+		super();
+		this.dateEnchere = dateEnchere;
+		this.montantEnchere = montantEnchere;
+	}
+
 	public Enchere(Time dateEnchere, Integer montantEnchere, Utilisateur encherisseur,
 			ArticleVendu articleVendu) {
 		super();

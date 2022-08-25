@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import fr.eni.projetEncheres.bo.Enchere;
+import fr.eni.projetEncheres.bo.Utilisateur;
 
 public class EncheresDAOJdbcImpl {
 
@@ -103,6 +104,10 @@ public class EncheresDAOJdbcImpl {
 
 			ResultSet rs = stmt.executeQuery(sqlSelectByNoUtilisateurAndArticle);
 
+			if (rs.next()) {
+				enchere = new Enchere (rs.getTime("date_enchere"), rs.getInt("montant_enchere"));
+			}
+			
 			stmt.close();
 			connection.close();
 		} catch (SQLException e) {
@@ -126,7 +131,13 @@ public class EncheresDAOJdbcImpl {
 					+ noUtilisateur;
 
 			ResultSet rs = stmt.executeQuery(sqlSelectByNoUtilisateur);
-
+			
+			
+			if (rs.next()) {
+				
+				enchere = new Enchere (rs.getTime("date_enchere"), rs.getInt("montant_enchere"));
+			}
+			
 			stmt.close();
 			connection.close();
 		} catch (SQLException e) {

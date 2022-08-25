@@ -10,8 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.projetEncheres.bo.Utilisateur;
+import fr.eni.projetEncheres.dal.DALException;
+import fr.eni.projetEncheres.dal.UtilisateurDAO;
 
-public class UtilisateurDAOjdbcImpl {
+
+public class UtilisateurDAOjdbcImpl implements UtilisateurDAO {
 
 	private static final int CREDIT_INITIAL = 0;
 	private static final boolean ROLE_UTILISATEUR = false;
@@ -175,5 +178,11 @@ public class UtilisateurDAOjdbcImpl {
 		}
 
 		return liste;
+	}
+
+	@Override
+	public List<Utilisateur> selectall() throws DALException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

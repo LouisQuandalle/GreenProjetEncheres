@@ -2,7 +2,10 @@ package fr.eni.projetEncheres.bo;
 
 import java.util.List;
 
-public class Utilisateur {
+import fr.eni.projetEncheres.dal.DALException;
+import fr.eni.projetEncheres.dal.UtilisateurDAO;
+
+public class Utilisateur implements UtilisateurDAO {
 	
 
 	private Integer no_utilisateur;
@@ -245,6 +248,36 @@ public class Utilisateur {
 				+ code_postal + ", ville=" + ville + ", motDePasse=" + mot_de_passe + ", credit=" + credit
 				+ ", administrateur=" + administrateur + ", encherit=" + encherit + ", achete=" + achete + ", vend="
 				+ vend + "]";
+	}
+
+	@Override
+	public void insert(Utilisateur data) throws DALException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(Utilisateur data) throws DALException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete(int noUtilisateur) throws DALException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Utilisateur selectByNoUtilisateur(int id) throws DALException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Utilisateur> selectall() throws DALException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

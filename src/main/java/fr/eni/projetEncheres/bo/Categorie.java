@@ -3,49 +3,49 @@ package fr.eni.projetEncheres.bo;
 import java.util.List;
 
 public class Categorie {
-	private Integer noCategorie;
-	private String libelle;
-	List<ArticleVendu> articlesVendus;
-	
+    private Integer noCategorie;
+    private String libelle;
+    List<ArticleVendu> articlesVendus;
+
 public Categorie() {
 }
 
 public Categorie(Integer noCategorie, String libelle, List<ArticleVendu> articlesVendus) {
-	super();
-	this.noCategorie = noCategorie;
-	this.libelle = libelle;
-	this.articlesVendus = articlesVendus;
+    super();
+    this.noCategorie = noCategorie;
+    this.libelle = libelle;
+    this.articlesVendus = articlesVendus;
 }
 
 public Integer getNoCategorie() {
-	return noCategorie;
+    return noCategorie;
 }
 
 public void setNoCategorie(Integer noCategorie) {
-	this.noCategorie = noCategorie;
+    this.noCategorie = noCategorie;
 }
 
 public String getLibelle() {
-	return libelle;
+    return libelle;
 }
 
 public void setLibelle(String libelle) {
-	this.libelle = libelle;
+    this.libelle = libelle;
 }
 
 public List<ArticleVendu> getArticlesVendus() {
-	return articlesVendus;
+    return articlesVendus;
 }
 
 public void setArticlesVendus(List<ArticleVendu> articlesVendus) {
-	this.articlesVendus = articlesVendus;
+    this.articlesVendus = articlesVendus;
 }
 
 @Override
 public String toString() {
-	return "Categorie [noCategorie=" + noCategorie + ", libelle=" + libelle + ", articlesVendus=" + articlesVendus
-			+ "]";
-}	
+    return "Categorie [noCategorie=" + noCategorie + ", libelle=" + libelle + ", articlesVendus=" + articlesVendus
+            + "]";
+}
 
 
 }
