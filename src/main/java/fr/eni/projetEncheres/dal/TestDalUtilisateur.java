@@ -16,7 +16,7 @@ public class TestDalUtilisateur {
 	UtilisateurDAOjdbcImpl utilisateurDAO = new UtilisateurDAOjdbcImpl();
 
 	//Instanciation du jeu d'essai 
-	Utilisateur u1 = new Utilisateur("xXDarkSasuke59Xx", "Bitybrérot", "Yves-Romain", "Yi@gmail.com","0707070707", "rue de manchester", "59000", "Lille", "cheztatitastout");
+	Utilisateur u1 = new Utilisateur("FileasFog", "Brérot", "Yves-Romain", "Yi@gmail.com","0707070707", "rue de manchester", "59000", "Lille", "cheztatitastout");
 	Utilisateur u2 = new Utilisateur("135.3 DB", "K7", "Olivier", "K7@gmail.com","0706060606", "rue de Liverpool", "63000", "Clermont", "cheztatayatouti");
 	Utilisateur u3 = new Utilisateur("Fan2Canards", "Fetus", "Nicolas", "FN@gmail.com","0606060606", "rue d'Edimbrough", "01000", "Bourg-en-Bresse", "titatitutu");
 
