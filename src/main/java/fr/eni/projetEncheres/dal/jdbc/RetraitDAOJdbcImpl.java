@@ -7,13 +7,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import fr.eni.projetEncheres.bo.ArticleVendu;
-import fr.eni.projetEncheres.bo.Categorie;
-import fr.eni.projetEncheres.dal.CategorieDAO;
-import fr.eni.projetEncheres.dal.DALException;
-import fr.eni.projetEncheres.dal.UtilisateurDAO;
+import fr.eni.projetEncheres.bo.Retrait;
+import fr.eni.projetEncheres.dal.RetraitDAO;
 
-public class CategorieDAOJdbcImpl implements CategorieDAO{
+public class RetraitDAOJdbcImpl implements RetraitDAO {
 
 private Connection connection;
 	
@@ -25,29 +22,23 @@ private Connection connection;
 		return connection;
 	}
 	
-	public CategorieDAOJdbcImpl() {
+	public RetraitDAOJdbcImpl() {
 
 	}
+	public void insert(Retrait data) {
 
-	@Override
-	public void insert(Categorie data) throws DALException {
 		try {
 			connection = null;
 			getConnection();
 
-			String sqlInsert = "insert into CATEGORIES(libelle) values(?);";
+			String sqlInsert = "INSERT INTO RETRAITS(noArticle, rue, code_postal, ville) VALUES(?,?,?,?) ";
 			PreparedStatement stmt = connection.prepareStatement(sqlInsert, Statement.RETURN_GENERATED_KEYS);
-			stmt.setString(1, data.getLibelle());
-									
 
-			int affectedRows = stmt.executeUpdate();
-			if (affectedRows == 1) {
-				ResultSet keys = stmt.getGeneratedKeys();
-				if (keys.next()) {
-					data.setNoCategorie(keys.getInt(1));
-				}
-
-			}
+			stmt.setInt(1, data.getArticleVendu().getNoArticle());
+			stmt.setString(2, data.getRue());
+			stmt.setString(3, data.getCodePostal());
+			stmt.setString(4, data.getVille());
+			
 
 			stmt.executeUpdate();
 
@@ -58,17 +49,21 @@ private Connection connection;
 		}
 
 	}
-	
-	public void update(Categorie data) {
+
+	public void update(Retrait data) {
 
 		try {
 			connection = null;
 			getConnection();
 
-			String sqlUpdate = "UPDATE CATEGORIES SET libelle=? WHERE no_categorie=?";
-			PreparedStatement stmt = connection.prepareStatement(sqlUpdate);
-			stmt.setString(1, data.getLibelle());
+			String sqlUpdate = "UPDATE RETRAITS SET rue=?,code_postal=?,ville=? WHERE noArticle=?";
 
+			PreparedStatement stmt = connection.prepareStatement(sqlUpdate);
+			stmt.setString(2, data.getRue());
+			stmt.setString(3, data.getCodePostal());
+			stmt.setString(4, data.getVille());
+
+			
 			stmt.executeUpdate();
 
 			stmt.close();
@@ -78,14 +73,14 @@ private Connection connection;
 		}
 
 	}
-	
-	public void delete(int noCategorie) {
+
+	public void delete(int noArticle) {
 		try {
 			connection = null;
 			getConnection();
 			PreparedStatement stmt = null;
-			stmt = connection.prepareStatement("DELETE FROM CATEGORIES WHERE no_categorie=?");
-			stmt.setInt(1, noCategorie);
+			stmt = connection.prepareStatement("DELETE FROM RETRAITS WHERE no_Article=?");
+			stmt.setInt(1, noArticle);
 			stmt.executeUpdate();
 
 			stmt.close();
@@ -94,11 +89,10 @@ private Connection connection;
 			e.printStackTrace();
 		}
 	}
-	
-	public Categorie selectByNoCategorie(int noCategorie) throws DALException {
-		Categorie categorie = null;
+
+	public Retrait selectByNoArticle(int noArticle) {
+		Retrait retrait = null;
 		connection = null;
-		
 		try {
 
 			connection = getConnection();
@@ -106,19 +100,17 @@ private Connection connection;
 			Statement stmt = null;
 			stmt = connection.createStatement();
 
-			String sqlSelectByNoCategorie = "SELECT libelle FROM ARTICLES_VENDUS WHERE noCategorie="
-					+ noCategorie;
-					
-			ResultSet rs = stmt.executeQuery(sqlSelectByNoCategorie);
-			
-						
+			String selectByNoArticle = "SELECT rue, code_postal, ville FROM RETRAITS WHERE noArticle=" + noArticle;
+
+			ResultSet rs = stmt.executeQuery(selectByNoArticle);
+
 			stmt.close();
 			connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-		return categorie;
+		return retrait;
 	}
 
 }

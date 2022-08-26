@@ -1,5 +1,7 @@
 package fr.eni.projetEncheres.dal;
 
+import java.util.List;
+
 import fr.eni.projetEncheres.bo.ArticleVendu;
 
 public interface ArticleVenduDAO {
@@ -15,5 +17,11 @@ public interface ArticleVenduDAO {
 			public void delete(int noArticle) throws DALException;
 			
 			//Sélectionner un article par son idArticle
-			public ArticleVendu selectById(int noArticle, int noUtilisateur, int noCategorie) throws DALException;
+			public ArticleVendu selectByNoArticle(int noArticle) throws DALException;
+			
+			//Selectionner des article par son NoCategorie
+			public ArticleVendu selectByNoCategorie(int noCategorie) throws DALException;
+			
+			//Selectionner tous les articles
+			public List<ArticleVendu> selectAll() throws DALException;
 }

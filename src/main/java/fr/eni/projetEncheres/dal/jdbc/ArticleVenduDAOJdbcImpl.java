@@ -6,8 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import fr.eni.projetEncheres.bo.ArticleVendu;
+import fr.eni.projetEncheres.bo.Utilisateur;
 import fr.eni.projetEncheres.dal.ArticleVenduDAO;
 import fr.eni.projetEncheres.dal.CategorieDAO;
 import fr.eni.projetEncheres.dal.DALException;
@@ -121,7 +124,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO{
 			Statement stmt = null;
 			stmt = connection.createStatement();
 
-			String sqlSelectByNoArticle = "SELECT nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, "
+			String sqlSelectByNoArticle = "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, "
 					+ "no_utilisateur, no_categorie FROM ARTICLES_VENDUS WHERE noArticle="
 					+ noArticle;
 					
@@ -132,10 +135,43 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO{
 			CategorieDAO categorieDAO = new CategorieDAOJdbcImpl();
 			
 			if (rs.next()) {
-                articleVendu = new ArticleVendu (rs.getString("nom_article"), rs.getString("description"),
-                        rs.getTime("date_debut_encheres"), rs.getTime("date_fin_encheres"), rs.getInt("prix_initial"),
-                        rs.getInt("prix_vente"), utilisateurDAO.selectByNoUtilisateur(rs.getInt("no_utilisateur")), 
-                        categorieDAO.selectById(rs.getInt("no_categorie")));
+				articleVendu = new ArticleVendu ( rs.getInt("no_article"),rs.getString("nom_article"), rs.getString("description"), rs.getTime("date_debut_encheres"), rs.getTime("date_fin_encheres"), rs.getInt("prix_initial"),
+                        rs.getInt("prix_vente"), utilisateurDAO.selectByNoUtilisateur(rs.getInt("no_utilisateur")),  categorieDAO.selectByNoCategorie(rs.getInt("noCategorie")));
+			}
+			
+			stmt.close();
+			connection.close();
+		} catch (SQLException | DALException e) {
+			e.printStackTrace();
+		}
+
+		return articleVendu;
+	}
+
+	public ArticleVendu selectByNoCategorie(int noCategorie) {
+		ArticleVendu articleVendu = null;
+		connection = null;
+		
+		try {
+
+			connection = getConnection();
+
+			Statement stmt = null;
+			stmt = connection.createStatement();
+
+			String sqlSelectByNoCategorie = "SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, "
+					+ "no_utilisateur, no_categorie FROM ARTICLES_VENDUS WHERE no_categorie="
+					+ noCategorie;
+					
+			ResultSet rs = stmt.executeQuery(sqlSelectByNoCategorie);
+			
+			UtilisateurDAO utilisateurDAO = new UtilisateurDAOjdbcImpl();
+			//Utilisateur utilisateur = utilisateurDAO.selectById(rs.getInt("no_utilisateur"));
+			CategorieDAO categorieDAO = new CategorieDAOJdbcImpl();
+			
+			if (rs.next()) {
+                articleVendu = new ArticleVendu ( rs.getInt("no_article"),rs.getString("nom_article"), rs.getString("description"), rs.getTime("date_debut_encheres"), rs.getTime("date_fin_encheres"), rs.getInt("prix_initial"),
+                        rs.getInt("prix_vente"), utilisateurDAO.selectByNoUtilisateur(rs.getInt("no_utilisateur")),  categorieDAO.selectByNoCategorie(rs.getInt("noCategorie")));
             }
 			
 			stmt.close();
@@ -147,8 +183,41 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO{
 		return articleVendu;
 	}
 
-	@Override
-	public ArticleVendu selectById(int noArticle, int noUtilisateur, int noCategorie) throws DALException {
-		return null;
+	public List<ArticleVendu> selectAll() {
+		List<ArticleVendu> liste = new ArrayList<ArticleVendu>();
+		connection = null;
+		Statement stmt = null;
+
+		try {
+			getConnection();
+			stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(
+					"SELECT no_article, nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, no_utilisateur, no_categorie FROM ARTICLES_VENDUS");
+
+			ArticleVendu art = null;
+
+			UtilisateurDAO utilisateurDAO = new UtilisateurDAOjdbcImpl();
+			CategorieDAO categorieDAO = new CategorieDAOJdbcImpl();
+			
+			while (rs.next()) {
+				
+			try {
+				art = new ArticleVendu ( rs.getInt("no_article"),rs.getString("nom_article"), rs.getString("description"), rs.getTime("date_debut_encheres"), rs.getTime("date_fin_encheres"), rs.getInt("prix_initial"),
+				        rs.getInt("prix_vente"), utilisateurDAO.selectByNoUtilisateur(rs.getInt("no_utilisateur")),  categorieDAO.selectByNoCategorie(rs.getInt("noCategorie")));
+			} catch (DALException e) {
+				e.printStackTrace();
+			}
+				liste.add(art);
+			}
+			connection.close();
+			stmt.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+
+		}
+
+		return liste;
 	}
+	
 }

@@ -1,5 +1,7 @@
 package fr.eni.projetEncheres.dal;
 
+import java.util.List;
+
 import fr.eni.projetEncheres.bo.Enchere;
 
 public interface EncheresDAO {
@@ -13,7 +15,13 @@ public interface EncheresDAO {
 			//Supprimer une enchère
 			public void delete(int noUtilisateur, int noArticle) throws DALException;
 			
-			//Sélectionner une enchère par son idArticle
-			public Enchere selectById(int noUtilisateur, int noArticle) throws DALException;
+			//Sélectionner une enchère par son NoUtilisateur & son NoArticle
+			public Enchere selectByNoUtilisateurAndArticle(int noUtilisateur, int noArticle) throws DALException;
+			
+			//Sélectionner par son NoUtilisateur
+			public List<Enchere> selectByNoUtilisateur(int noUtilisateur);
+			
+			//Sélectionner parNoArticle
+			public List<Enchere> selectByNoArticle(int noArticle);
 	
 }
