@@ -4,7 +4,7 @@ import java.util.List;
 
 
 import fr.eni.projetEncheres.bo.Utilisateur;
-import fr.eni.projetEncheres.dal.jdbc.UtilisateurDAOjdbcImpl;
+import fr.eni.projetEncheres.dal.jdbc.UtilisateurDAOJdbcImpl;
 
 
 public class TestDalUtilisateur {
@@ -13,7 +13,7 @@ public class TestDalUtilisateur {
 
 	
 	//Déclaration et instanciation de la DAO
-	UtilisateurDAOjdbcImpl utilisateurDAO = new UtilisateurDAOjdbcImpl();
+	UtilisateurDAOJdbcImpl utilisateurDAO = new UtilisateurDAOJdbcImpl();
 
 	//Instanciation du jeu d'essai 
 	Utilisateur u1 = new Utilisateur("FileasFog", "Brérot", "Yves-Romain", "Yi@gmail.com","0707070707", "rue de manchester", "59000", "Lille", "cheztatitastout");

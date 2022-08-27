@@ -20,5 +20,5 @@ public interface UtilisateurDAO {
 		public Utilisateur selectByNoUtilisateur(int id) throws DALException;
 		
 		//Selectionner tout utilisateurs
-		public List<Utilisateur> selectall() throws DALException;
+		public List<Utilisateur> selectAll() throws DALException;
 }
