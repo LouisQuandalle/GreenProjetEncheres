@@ -16,7 +16,7 @@ public interface UtilisateurDAO {
 		//Supprimer un utilisateur
 		public void delete(int noUtilisateur) throws DALException;
 		
-		//Sélectionner un utilisatuer par son idUtilisateur
+		//Sélectionner un utilisateur par son noUtilisateur
 		public Utilisateur selectByNoUtilisateur(int id) throws DALException;
 		
 		//Selectionner tout utilisateurs

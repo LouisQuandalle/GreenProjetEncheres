@@ -1,9 +1,9 @@
 package fr.eni.projetEncheres.bo;
 
-import java.sql.Time;
+import java.sql.Date;
 
 public class Enchere {
-	private Time dateEnchere;
+	private Date dateEnchere;
 	private Integer montantEnchere;
 	private Utilisateur encherisseur;
 	private ArticleVendu articleVendu;
@@ -11,40 +11,40 @@ public class Enchere {
 	public Enchere() {
 	}
 
-	public Enchere(Time dateEnchere, Integer montantEnchere, Utilisateur encherisseur) {
+	public Enchere(Date dateEnchere, Integer montantEnchere, Utilisateur encherisseur) {
 		super();
 		this.dateEnchere = dateEnchere;
 		this.montantEnchere = montantEnchere;
 		this.encherisseur = encherisseur;
 	}
 
-	public Enchere(Time dateEnchere, Integer montantEnchere, ArticleVendu articleVendu) {
+	public Enchere(Date dateEnchere, Integer montantEnchere, ArticleVendu articleVendu) {
 		super();
 		this.dateEnchere = dateEnchere;
 		this.montantEnchere = montantEnchere;
 		this.articleVendu = articleVendu;
 	}
 
-	public Enchere(Time dateEnchere, Integer montantEnchere) {
+	public Enchere(Date dateEnchere, Integer montantEnchere) {
 		super();
 		this.dateEnchere = dateEnchere;
 		this.montantEnchere = montantEnchere;
 	}
 
-	public Enchere(Time dateEnchere, Integer montantEnchere, Utilisateur encherisseur,
+	public Enchere(Date dateEnchere2, Integer montantEnchere, Utilisateur encherisseur,
 			ArticleVendu articleVendu) {
 		super();
-		this.dateEnchere = dateEnchere;
+		this.dateEnchere = dateEnchere2;
 		this.montantEnchere = montantEnchere;
 		this.encherisseur = encherisseur;
 		this.articleVendu = articleVendu;
 	}
 
-	public Time getDateEnchere() {
+	public Date getDateEnchere() {
 		return dateEnchere;
 	}
 
-	public void setDateEnchere(Time dateEnchere) {
+	public void setDateEnchere(Date dateEnchere) {
 		this.dateEnchere = dateEnchere;
 	}
 

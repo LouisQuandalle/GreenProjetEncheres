@@ -17,6 +17,12 @@ public Categorie(Integer noCategorie, String libelle, List<ArticleVendu> article
     this.articlesVendus = articlesVendus;
 }
 
+public Categorie(Integer noCategorie, String libelle) {
+	super();
+	this.noCategorie = noCategorie;
+	this.libelle = libelle;
+}
+
 public Integer getNoCategorie() {
     return noCategorie;
 }

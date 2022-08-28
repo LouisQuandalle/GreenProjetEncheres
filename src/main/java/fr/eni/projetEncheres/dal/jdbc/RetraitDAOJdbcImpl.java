@@ -9,6 +9,9 @@ import java.sql.Statement;
 
 import fr.eni.projetEncheres.bo.Retrait;
 import fr.eni.projetEncheres.dal.RetraitDAO;
+import fr.eni.projetEncheres.dal.ArticleVenduDAO;
+import fr.eni.projetEncheres.dal.DALException;
+
 
 public class RetraitDAOJdbcImpl implements RetraitDAO {
 
@@ -31,7 +34,7 @@ private Connection connection;
 			connection = null;
 			getConnection();
 
-			String sqlInsert = "INSERT INTO RETRAITS(noArticle, rue, code_postal, ville) VALUES(?,?,?,?) ";
+			String sqlInsert = "INSERT INTO RETRAITS(no_article, rue, code_postal, ville) VALUES(?,?,?,?) ";
 			PreparedStatement stmt = connection.prepareStatement(sqlInsert, Statement.RETURN_GENERATED_KEYS);
 
 			stmt.setInt(1, data.getArticleVendu().getNoArticle());
@@ -100,13 +103,23 @@ private Connection connection;
 			Statement stmt = null;
 			stmt = connection.createStatement();
 
-			String selectByNoArticle = "SELECT rue, code_postal, ville FROM RETRAITS WHERE noArticle=" + noArticle;
+			String selectByNoArticle = "SELECT no_article, rue, code_postal, ville FROM RETRAITS WHERE no_article=" + noArticle;
 
 			ResultSet rs = stmt.executeQuery(selectByNoArticle);
 
+			ArticleVenduDAO articleVenduDAO = new ArticleVenduDAOJdbcImpl();
+			
+			if (rs.next()) {
+				retrait = new Retrait (articleVenduDAO.selectByNoArticle(rs.getInt("no_article")), rs.getString("rue"), rs.getString("code_postal"),
+						rs.getString("ville"));
+			}
+			
 			stmt.close();
 			connection.close();
 		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

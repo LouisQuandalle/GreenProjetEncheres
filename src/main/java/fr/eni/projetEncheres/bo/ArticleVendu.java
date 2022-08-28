@@ -1,14 +1,14 @@
 package fr.eni.projetEncheres.bo;
 
-import java.sql.Time;
+import java.sql.Date;
 import java.util.List;
 
 public class ArticleVendu {
 	private Integer noArticle;
 	private String nomArticle;
 	private String description;
-	private Time dateDebutEncheres;
-	private Time dateFinEncheres;
+	private java.sql.Date dateDebutEncheres;
+	private java.sql.Date dateFinEncheres;
 	private Integer prixInitial;
 	private Integer prixVente;
 	private boolean etatVente;
@@ -21,8 +21,8 @@ public class ArticleVendu {
 	public ArticleVendu() {
 	}
 
-	public ArticleVendu(Integer noArticle, String nomArticle, String description, Time dateDebutEncheres,
-			Time dateFinEncheres, Integer prixInitial, Integer prixVente, boolean etatVente, Utilisateur acheteur,
+	public ArticleVendu(Integer noArticle, String nomArticle, String description, Date dateDebutEncheres,
+			Date dateFinEncheres, Integer prixInitial, Integer prixVente, boolean etatVente, Utilisateur acheteur,
 			Utilisateur vendeur, Categorie categorie) {
 		super();
 		this.noArticle = noArticle;
@@ -38,8 +38,8 @@ public class ArticleVendu {
 		this.categorie = categorie;
 	}
 
-	public ArticleVendu(Integer noArticle, String nomArticle, String description, Time dateDebutEncheres,
-			Time dateFinEncheres, Integer prixInitial, Integer prixVente, Utilisateur vendeur,
+	public ArticleVendu(Integer noArticle, String nomArticle, String description, Date dateDebutEncheres,
+			Date dateFinEncheres, Integer prixInitial, Integer prixVente, Utilisateur vendeur,
 			Categorie categorie) {
 		super();
 		this.noArticle = noArticle;
@@ -53,8 +53,8 @@ public class ArticleVendu {
 		this.categorie = categorie;
 	}
 
-	public ArticleVendu(String nomArticle, String description, Time dateDebutEncheres,
-			Time dateFinEncheres, int prixInitial, int prixVente, Utilisateur vendeur, Categorie categorie) 
+	public ArticleVendu(String nomArticle, String description, Date dateDebutEncheres,
+			Date dateFinEncheres, int prixInitial, int prixVente, Utilisateur vendeur, Categorie categorie) 
 	{
 		super();
 		this.nomArticle = nomArticle;
@@ -67,8 +67,8 @@ public class ArticleVendu {
 		this.categorie = categorie;
 	}
 	
-	public ArticleVendu(Integer noArticle, String nomArticle, String description, Time dateDebutEncheres,
-			Time dateFinEncheres, Integer prixInitial, Integer prixVente, boolean etatVente,
+	public ArticleVendu(Integer noArticle, String nomArticle, String description, Date dateDebutEncheres,
+			Date dateFinEncheres, Integer prixInitial, Integer prixVente, boolean etatVente,
 			Utilisateur acheteur, Utilisateur vendeur, Categorie categorie, List<Enchere> encheres,
 			Retrait lieuRetrait) {
 		super();
@@ -113,19 +113,19 @@ public class ArticleVendu {
 		this.description = description;
 	}
 
-	public Time getDateDebutEncheres() {
+	public Date getDateDebutEncheres() {
 		return dateDebutEncheres;
 	}
 
-	public void setDateDebutEncheres(Time dateDebutEncheres) {
+	public void setDateDebutEncheres(Date dateDebutEncheres) {
 		this.dateDebutEncheres = dateDebutEncheres;
 	}
 
-	public Time getDateFinEncheres() {
+	public Date getDateFinEncheres() {
 		return dateFinEncheres;
 	}
 
-	public void setDateFinEncheres(Time dateFinEncheres) {
+	public void setDateFinEncheres(Date dateFinEncheres) {
 		this.dateFinEncheres = dateFinEncheres;
 	}
 
@@ -191,6 +191,15 @@ public class ArticleVendu {
 
 	public void setLieuRetrait(Retrait lieuRetrait) {
 		this.lieuRetrait = lieuRetrait;
+	}
+
+	@Override
+	public String toString() {
+		return "ArticleVendu [noArticle=" + noArticle + ", nomArticle=" + nomArticle + ", description=" + description
+				+ ", dateDebutEncheres=" + dateDebutEncheres + ", dateFinEncheres=" + dateFinEncheres + ", prixInitial="
+				+ prixInitial + ", prixVente=" + prixVente + ", etatVente=" + etatVente + ", acheteur=" + acheteur
+				+ ", vendeur=" + vendeur + ", categorie=" + categorie + ", encheres=" + encheres + ", lieuRetrait="
+				+ lieuRetrait + "]";
 	}
 	
 	

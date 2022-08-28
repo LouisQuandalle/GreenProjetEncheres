@@ -40,10 +40,10 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
 			connection = null;
 			getConnection();
 
-			String sqlInsert = "INSERT INTO ENCHERES(date_enchere, montant_enchere,noUtilisateur, noArticle) VALUES(?,?,?,?) ";
+			String sqlInsert = "INSERT INTO ENCHERES(date_enchere, montant_enchere,no_utilisateur, no_article) VALUES(?,?,?,?) ";
 			PreparedStatement stmt = connection.prepareStatement(sqlInsert, Statement.RETURN_GENERATED_KEYS);
 
-			stmt.setTime(1, data.getDateEnchere());
+			stmt.setDate(1, data.getDateEnchere());
 			stmt.setInt(2, data.getMontantEnchere());
 			stmt.setInt(3, data.getEncherisseur().getNoUtilisateur());
 			stmt.setInt(4, data.getArticleVendu().getNoArticle());
@@ -67,7 +67,7 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
 			String sqlUpdate = "UPDATE ENCHERES SET date_enchere=?,montant_enchere=? WHERE noUtilisateur=?, noArticle=?";
 
 			PreparedStatement stmt = connection.prepareStatement(sqlUpdate);
-			stmt.setTime(1, data.getDateEnchere());
+			stmt.setDate(1, data.getDateEnchere());
 			stmt.setInt(2, data.getMontantEnchere());
 
 			stmt.executeUpdate();
@@ -107,19 +107,19 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
 			Statement stmt = null;
 			stmt = connection.createStatement();
 
-			String sqlSelectByNoUtilisateurAndArticle = "SELECT no_utlisateur, no_article, date_enchere, montant_enchere FROM ENCHERES WHERE noUtilisateur="
-					+ noUtilisateur + ", noArticle=" + noArticle;
+			String sqlSelectByNoUtilisateurAndArticle = "SELECT no_utilisateur, no_article, date_enchere, montant_enchere FROM ENCHERES WHERE no_utilisateur="
+					+ noUtilisateur + "AND no_article=" + noArticle;
 
 			ResultSet rs = stmt.executeQuery(sqlSelectByNoUtilisateurAndArticle);
 
-			UtilisateurDAO utilisateurDAO = new UtilisateurDAOjdbcImpl();
-			ArticleVenduDAO ArticleVenduDAO = new ArticleVenduDAOJdbcImpl();
+			UtilisateurDAO utilisateurDAO = new UtilisateurDAOJdbcImpl();
+			ArticleVenduDAO articleVenduDAO = new ArticleVenduDAOJdbcImpl();
 
 			if (rs.next()) {
 				try {
-					enchere = new Enchere(rs.getTime("date_enchere"), rs.getInt("montant_enchere"),
+					enchere = new Enchere(rs.getDate("date_enchere"), rs.getInt("montant_enchere"),
 							utilisateurDAO.selectByNoUtilisateur(rs.getInt("no_utilisateur")),
-							ArticleVenduDAO.selectByNoArticle(rs.getInt("no_article")));
+							articleVenduDAO.selectByNoArticle(rs.getInt("no_article")));
 				} catch (DALException e) {
 					e.printStackTrace();
 				}
@@ -148,13 +148,13 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
 
 			Enchere enchere = null;
 
-			UtilisateurDAO utilisateurDAO = new UtilisateurDAOjdbcImpl();
+			UtilisateurDAO utilisateurDAO = new UtilisateurDAOJdbcImpl();
 			ArticleVenduDAO articleVenduDAO = new ArticleVenduDAOJdbcImpl();
 
 			while (rs.next()) {
 
 				try {
-					enchere = new Enchere(rs.getTime("date_enchere"), rs.getInt("montant_enchere"),
+					enchere = new Enchere(rs.getDate("date_enchere"), rs.getInt("montant_enchere"),
 							utilisateurDAO.selectByNoUtilisateur(rs.getInt("no_utilisateur")),
 							articleVenduDAO.selectByNoArticle(rs.getInt("no_article")));
 				} catch (DALException e) {
@@ -187,13 +187,13 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
 
 			Enchere enchere = null;
 
-			UtilisateurDAO utilisateurDAO = new UtilisateurDAOjdbcImpl();
+			UtilisateurDAO utilisateurDAO = new UtilisateurDAOJdbcImpl();
 			ArticleVenduDAO articleVenduDAO = new ArticleVenduDAOJdbcImpl();
 
 			while (rs.next()) {
 
 				try {
-					enchere = new Enchere(rs.getTime("date_enchere"), rs.getInt("montant_enchere"),
+					enchere = new Enchere(rs.getDate("date_enchere"), rs.getInt("montant_enchere"),
 							utilisateurDAO.selectByNoUtilisateur(rs.getInt("no_utilisateur")),
 							articleVenduDAO.selectByNoArticle(rs.getInt("no_article")));
 				} catch (DALException e) {

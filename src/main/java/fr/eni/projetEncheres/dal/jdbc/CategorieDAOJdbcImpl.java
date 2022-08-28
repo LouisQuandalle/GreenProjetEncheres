@@ -7,11 +7,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import fr.eni.projetEncheres.bo.ArticleVendu;
 import fr.eni.projetEncheres.bo.Categorie;
 import fr.eni.projetEncheres.dal.CategorieDAO;
 import fr.eni.projetEncheres.dal.DALException;
-import fr.eni.projetEncheres.dal.UtilisateurDAO;
 
 public class CategorieDAOJdbcImpl implements CategorieDAO{
 
@@ -48,8 +46,6 @@ private Connection connection;
 				}
 
 			}
-
-			stmt.executeUpdate();
 
 			stmt.close();
 			connection.close();
@@ -106,11 +102,13 @@ private Connection connection;
 			Statement stmt = null;
 			stmt = connection.createStatement();
 
-			String sqlSelectByNoCategorie = "SELECT libelle FROM ARTICLES_VENDUS WHERE noCategorie="
+			String sqlSelectByNoCategorie = "SELECT no_categorie, libelle FROM CATEGORIES WHERE no_categorie="
 					+ noCategorie;
 					
 			ResultSet rs = stmt.executeQuery(sqlSelectByNoCategorie);
-			
+			if (rs.next()) {
+				categorie = new Categorie(rs.getInt("no_categorie"), rs.getString("libelle"));
+			}
 						
 			stmt.close();
 			connection.close();
