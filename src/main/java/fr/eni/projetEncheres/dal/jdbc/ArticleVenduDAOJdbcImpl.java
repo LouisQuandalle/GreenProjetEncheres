@@ -163,7 +163,6 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO{
 			ResultSet rs = stmt.executeQuery(sqlSelectByNoCategorie);
 			
 			UtilisateurDAO utilisateurDAO = new UtilisateurDAOJdbcImpl();
-			//Utilisateur utilisateur = utilisateurDAO.selectById(rs.getInt("no_utilisateur"));
 			CategorieDAO categorieDAO = new CategorieDAOJdbcImpl();
 			
 			if (rs.next()) {
