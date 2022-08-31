@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import fr.eni.projetEncheres.bo.Retrait;
 import fr.eni.projetEncheres.dal.RetraitDAO;
@@ -59,12 +61,13 @@ private Connection connection;
 			connection = null;
 			getConnection();
 
-			String sqlUpdate = "UPDATE RETRAITS SET rue=?,code_postal=?,ville=? WHERE noArticle=?";
+			String sqlUpdate = "UPDATE RETRAITS SET rue=?,code_postal=?,ville=? WHERE no_article=?";
 
 			PreparedStatement stmt = connection.prepareStatement(sqlUpdate);
-			stmt.setString(2, data.getRue());
-			stmt.setString(3, data.getCodePostal());
-			stmt.setString(4, data.getVille());
+			stmt.setString(1, data.getRue());
+			stmt.setString(2, data.getCodePostal());
+			stmt.setString(3, data.getVille());
+			stmt.setInt(4, data.getArticleVendu().getNoArticle());
 
 			
 			stmt.executeUpdate();
@@ -126,4 +129,35 @@ private Connection connection;
 		return retrait;
 	}
 
+	public List<Retrait> selectAll() {
+		List<Retrait> liste = new ArrayList<Retrait>();
+		connection = null;
+		Statement stmt = null;
+
+		try {
+			getConnection();
+			stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(
+					"SELECT no_article, rue, code_postal, ville FROM RETRAITS");
+
+			Retrait r = null;
+
+			ArticleVenduDAO articleVenduDAO = new ArticleVenduDAOJdbcImpl();
+			
+			while (rs.next()) {
+
+				r = new Retrait(articleVenduDAO.selectByNoArticle(rs.getInt("no_article")), rs.getString("rue"), rs.getString("code_postal"), rs.getString("ville"));
+				liste.add(r);
+			}
+			connection.close();
+			stmt.close();
+
+		} catch (SQLException | DALException e) {
+			e.printStackTrace();
+
+		}
+
+		return liste;
+	}
+	
 }

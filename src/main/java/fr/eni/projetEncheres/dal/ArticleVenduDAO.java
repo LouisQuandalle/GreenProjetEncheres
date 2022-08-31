@@ -20,7 +20,7 @@ public interface ArticleVenduDAO {
 			public ArticleVendu selectByNoArticle(int noArticle) throws DALException;
 			
 			//Selectionner des article par son NoCategorie
-			public ArticleVendu selectByNoCategorie(int noCategorie) throws DALException;
+			public List<ArticleVendu> selectByNoCategorie(int noCategorie) throws DALException;
 			
 			//Selectionner tous les articles
 			public List<ArticleVendu> selectAll() throws DALException;

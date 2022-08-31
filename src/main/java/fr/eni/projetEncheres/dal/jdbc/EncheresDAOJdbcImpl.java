@@ -9,11 +9,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import fr.eni.projetEncheres.bo.ArticleVendu;
 import fr.eni.projetEncheres.bo.Enchere;
-import fr.eni.projetEncheres.bo.Utilisateur;
 import fr.eni.projetEncheres.dal.ArticleVenduDAO;
-import fr.eni.projetEncheres.dal.CategorieDAO;
 import fr.eni.projetEncheres.dal.DALException;
 import fr.eni.projetEncheres.dal.EncheresDAO;
 import fr.eni.projetEncheres.dal.UtilisateurDAO;
@@ -64,11 +61,13 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
 			connection = null;
 			getConnection();
 
-			String sqlUpdate = "UPDATE ENCHERES SET date_enchere=?,montant_enchere=? WHERE noUtilisateur=?, noArticle=?";
+			String sqlUpdate = "UPDATE ENCHERES SET date_enchere=?,montant_enchere=? WHERE no_utilisateur=? AND no_article=?";
 
 			PreparedStatement stmt = connection.prepareStatement(sqlUpdate);
 			stmt.setDate(1, data.getDateEnchere());
 			stmt.setInt(2, data.getMontantEnchere());
+			stmt.setInt(3, data.getEncherisseur().getNoUtilisateur());
+			stmt.setInt(4, data.getArticleVendu().getNoArticle());
 
 			stmt.executeUpdate();
 
@@ -85,7 +84,7 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
 			connection = null;
 			getConnection();
 			PreparedStatement stmt = null;
-			stmt = connection.prepareStatement("DELETE FROM Articles WHERE no_Utilisateur=? , no_Article=?");
+			stmt = connection.prepareStatement("DELETE FROM ARTICLES_VENDUS WHERE no_Utilisateur=? AND no_Article=?");
 			stmt.setInt(1, noUtilisateur);
 			stmt.setInt(2, noArticle);
 			stmt.executeUpdate();
@@ -205,6 +204,37 @@ public class EncheresDAOJdbcImpl implements EncheresDAO {
 			stmt.close();
 
 		} catch (SQLException e) {
+			e.printStackTrace();
+
+		}
+
+		return liste;
+	}
+	
+	public List<Enchere> selectAll() {
+		List<Enchere> liste = new ArrayList<Enchere>();
+		connection = null;
+		Statement stmt = null;
+
+		try {
+			getConnection();
+			stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(
+					"SELECT no_utilisateur, no_article, date_enchere, montant_enchere FROM ENCHERES");
+
+			Enchere e = null;
+
+			UtilisateurDAO utilisateurDAO = new UtilisateurDAOJdbcImpl();
+			ArticleVenduDAO articleVenduDAO = new ArticleVenduDAOJdbcImpl();
+			while (rs.next()) {
+
+				e = new Enchere(rs.getDate("date_enchere"), rs.getInt("montant_enchere"), utilisateurDAO.selectByNoUtilisateur(rs.getInt("no_utilisateur")),articleVenduDAO.selectByNoArticle(rs.getInt("no_article")));
+				liste.add(e);
+			}
+			connection.close();
+			stmt.close();
+
+		} catch (SQLException | DALException e) {
 			e.printStackTrace();
 
 		}

@@ -1,6 +1,7 @@
 package fr.eni.projetEncheres.dal;
 
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import fr.eni.projetEncheres.bo.ArticleVendu;
@@ -32,7 +33,8 @@ public class TestDalUtilisateur {
 	Utilisateur u2 = new Utilisateur("135.3 DB", "K7", "Olivier", "K7@gmail.com","0706060606", "rue de Liverpool", "63000", "Clermont", "cheztatayatouti");
 	Utilisateur u3 = new Utilisateur("Fan2Canards", "Fetus", "Nicolas", "FN@gmail.com","0606060606", "rue d'Edimbrough", "01000", "Bourg-en-Bresse", "titatitutu");
 
-	Date dateEnchere1 = new Date(2022-9-12);
+	
+	Date dateEnchere1 = new Date(20220516L*1000);
 	Date dateVente1= new Date(2022-10-12);
 	
 	Date dateEnchere2= new Date(13-1-2023);
@@ -55,18 +57,18 @@ public class TestDalUtilisateur {
 	Retrait r2 = new Retrait(a2, "Rue de la liberté", "69000", "Lyon");
 	Retrait r3 = new Retrait(a3, "Boulevard du général Molinié", "13000", "Marseille");
 	
-	Enchere e1 = new Enchere(dateEnchere2, 420, u1, a3);
+	Enchere e1 = new Enchere(dateEnchere2, 420, u2, a3);
 	Enchere e2 = new Enchere(dateEnchere1, 840, u2, a2);
 	Enchere e3 = new Enchere(dateEnchere3, 1260, u3, a3);
 	
 
 	System.out.println("Ajout des utilisateurs... ");
 	utilisateurDAO.insert(u1);
-	System.out.println("Article ajouté  : " + u1.toString());
+	System.out.println("Utilisateur ajouté  : " + u1.toString());
 	utilisateurDAO.insert(u2);
-	System.out.println("Article ajouté  : " + u2.toString());
+	System.out.println("Utilisateur ajouté  : " + u2.toString());
 	utilisateurDAO.insert(u3);
-	System.out.println("Article ajouté  : " + u3.toString());
+	System.out.println("Utilisateur ajouté  : " + u3.toString());
 
 	
 	System.out.println("Ajout des catégories....");
@@ -103,9 +105,10 @@ public class TestDalUtilisateur {
 	enchereDAO.insert(e3);
 	System.out.println("Enchère ajoutée : " + e3.toString());
 	
-	//Sélection de l'utilisateur par no
+	//Sélection par:
 			Utilisateur u = utilisateurDAO.selectByNoUtilisateur(u2.getNoUtilisateur());
-			System.out.println("\nSélection de l'utilisateur par no  : " + u.toString() );
+			System.out.println("\nSélection de l'utilisateur par no  : ");
+			System.out.println(u.toString());
 			
 			Categorie cat = categorieDAO.selectByNoCategorie(categorie1.getNoCategorie());
 			System.out.println("\nSélection d'une catégorie par son no : " + cat.toString());
@@ -120,12 +123,40 @@ public class TestDalUtilisateur {
 			System.out.println("\nSélection d'une enchere par no d'utilisateur et d'article : " + encUtiArt.toString());
 
 
-	//Sélection de tous les utilisateurs
+	//Sélection de listes de :
 			List<Utilisateur> utilisateurs = utilisateurDAO.selectAll();
-			System.out.println("\nSélection de tous les articles  : "  );
+			System.out.println("\nSélection de tous les utilisateurs  : "  );
 			afficherUtilisateurs(utilisateurs);
-	
-	//Modification d'un utilisateur
+			
+			List<ArticleVendu> articlesVendusCat = articleVenduDAO.selectByNoCategorie(a3.getCategorie().getNoCategorie());
+			System.out.println("\nSélection des articles par numéro de catégorie : ");
+			afficherArticles(articlesVendusCat);
+			
+			List<ArticleVendu> articlesVendusAll = articleVenduDAO.selectAll();
+			System.out.println("\nSélection de tous les articles: ");
+			afficherArticles(articlesVendusAll);
+			
+			List<Enchere> enchereParUtilisateur = enchereDAO.selectByNoUtilisateur(u2.getNoUtilisateur());
+			System.out.println("\nSélection des enchères d'un utilisateur");
+			afficherEncheres(enchereParUtilisateur);
+			
+			List<Enchere> enchereParArticle = enchereDAO.selectByNoArticle(a3.getNoArticle());
+			System.out.println("\nSélection des enchères sur un article : ");
+			afficherEncheres(enchereParArticle);
+			
+			List<Categorie> categorie = categorieDAO.selectAll();
+			System.out.println("\nSélection de toutes les catégories");
+			afficherCategories(categorie);
+			
+			List<Retrait> retrait = retraitDAO.selectAll();
+			System.out.println("\nSélection de tous les retraits");
+			afficherRetraits(retrait);
+			
+			List<Enchere> enchere = enchereDAO.selectAll();
+			System.out.println("\nSélection de toutes les enchères");
+			afficherEncheres(enchere);
+			
+	//Modifications : 
 	System.out.println("\nModification d'un utilisateur  : " );
 	System.out.println("Utilisateur avant modification : "  + u1.toString());
 	u1.setRue("Avenue du peuple belge");
@@ -134,14 +165,70 @@ public class TestDalUtilisateur {
 	utilisateurDAO.update(u1);
 	System.out.println("Article après modification  : " + u1.toString() );
 	
+	System.out.println("\nModification d'une enchère  : " );
+	System.out.println("Enchere avant modification : "  + e1.toString());
+	e1.setMontantEnchere(2600);
+	enchereDAO.update(e1);
+	System.out.println("Article après modification  : " + e1.toString() );
 	
-	//Suppression d'un utilisateur
-	System.out.println("\nSuppression de l'article  : " + u1.toString());
+	System.out.println("\nModification d'un Article  : " );
+	System.out.println("Article avant modification : "  + a2.toString());
+	a2.setNomArticle("Armoire en chêne massif");
+	a2.setDescription("Ce meuble serait en fait un reliquat des meubles de François 1er ");
+	articleVenduDAO.update(a2);
+	System.out.println("Article après modification  : " + a2.toString() );
+	
+	System.out.println("\nModification d'une catégorie  : " );
+	System.out.println("Catégorie avant modification : "  + categorie1.toString());
+	categorie1.setLibelle("informatique et électroménager");
+	categorieDAO.update(categorie1);
+	System.out.println("Article après modification  : " + categorie1.toString() );
+	
+	System.out.println("\nModification d'un lieu de retrait  : " );
+	System.out.println("Lieu de retrait avant modification : "  + r1.toString());
+	r1.setVille("Desvres");
+	r1.setCodePostal("62240");
+	r1.setRue("Place de l'église");
+	retraitDAO.update(r1);
+	System.out.println("Article après modification  : " + r1.toString() );
+	
+	
+	//Suppressions : 
+	System.out.println("\nSuppression de l'Utilisateur  : " + u1.toString());
 	utilisateurDAO.delete(u1.getNoUtilisateur());
 	utilisateurs = utilisateurDAO.selectAll();
-	System.out.println("Liste des articles après suppression : "  );
+	System.out.println("Liste des utilisateurs après suppression : "  );
 	afficherUtilisateurs(utilisateurs);
 	System.out.println("---------------------------------------------------------------");
+	
+	System.out.println("\nSuppression d'un lieu de retrait  : " + r1.toString());
+	retraitDAO.delete(r1.getArticleVendu().getNoArticle());
+	retrait = retraitDAO.selectAll();
+	System.out.println("Liste des lieux de retrait après suppression : "  );
+	afficherRetraits(retrait);
+	System.out.println("---------------------------------------------------------------");
+	
+	System.out.println("\nSuppression de l'article  : " + a1.toString());
+	articleVenduDAO.delete(a1.getNoArticle());
+	articlesVendusAll = articleVenduDAO.selectAll();
+	System.out.println("Liste des articles après suppression : "  );
+	afficherArticles(articlesVendusAll);
+	System.out.println("---------------------------------------------------------------");
+	
+	System.out.println("\nSuppression de la catégorie  : " + categorie4.toString());
+	categorieDAO.delete(categorie4.getNoCategorie());
+	categorie = categorieDAO.selectAll();
+	System.out.println("Liste des catégories après suppression : ");
+	afficherCategories(categorie);
+	System.out.println("---------------------------------------------------------------");
+	
+	System.out.println("\nSuppression de l'enchere  : " + e2.toString());
+	enchereDAO.delete(e2.getArticleVendu().getNoArticle(), e2.getEncherisseur().getNoUtilisateur());
+	enchere = enchereDAO.selectAll();
+	System.out.println("Liste des enchères après suppression : "  );
+	afficherEncheres(enchere);
+	System.out.println("---------------------------------------------------------------");
+
 
 }
 
@@ -154,4 +241,41 @@ private static void afficherUtilisateurs(List<Utilisateur> utilisateur){
 	}
 	System.out.println(sb.toString());
 }
+
+private static void afficherArticles(List<ArticleVendu> articles){
+	StringBuffer sb = new StringBuffer();
+	for(ArticleVendu art: articles){
+		sb.append(art.toString());
+		sb.append("\n");
+	}
+	System.out.println(sb.toString());
+}
+
+private static void afficherEncheres(List<Enchere> encheres){
+	StringBuffer sb = new StringBuffer();
+	for(Enchere enc: encheres){
+		sb.append(enc.toString());
+		sb.append("\n");
+	}
+	System.out.println(sb.toString());
+}
+
+private static void afficherCategories(List<Categorie> categories){
+	StringBuffer sb = new StringBuffer();
+	for(Categorie cat: categories){
+		sb.append(cat.toString());
+		sb.append("\n");
+	}
+	System.out.println(sb.toString());
+}
+
+private static void afficherRetraits(List<Retrait> retraits){
+	StringBuffer sb = new StringBuffer();
+	for(Retrait ret: retraits){
+		sb.append(ret.toString());
+		sb.append("\n");
+	}
+	System.out.println(sb.toString());
+}
+
 }

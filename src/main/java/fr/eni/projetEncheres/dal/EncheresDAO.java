@@ -23,5 +23,8 @@ public interface EncheresDAO {
 			
 			//Sélectionner parNoArticle
 			public List<Enchere> selectByNoArticle(int noArticle);
+			
+			//Sélectionner toutes les enchères
+			public List<Enchere> selectAll();
 	
 }

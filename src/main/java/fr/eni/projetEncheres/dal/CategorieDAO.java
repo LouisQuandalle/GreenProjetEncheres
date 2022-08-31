@@ -1,5 +1,7 @@
 package fr.eni.projetEncheres.dal;
 
+import java.util.List;
+
 import fr.eni.projetEncheres.bo.Categorie;
 
 public interface CategorieDAO {
@@ -16,4 +18,7 @@ public interface CategorieDAO {
 			
 			//Sélectionner une categorie par son noCategorie
 			public Categorie selectByNoCategorie(int noCategorie) throws DALException;
+			
+			//Sélection de toutes les catégories
+			public List<Categorie> selectAll() throws DALException;
 }

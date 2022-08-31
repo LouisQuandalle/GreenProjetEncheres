@@ -145,10 +145,9 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO{
 		return articleVendu;
 	}
 
-	public ArticleVendu selectByNoCategorie(int noCategorie) {
-		ArticleVendu articleVendu = null;
+	public List<ArticleVendu> selectByNoCategorie(int noCategorie) {
 		connection = null;
-		
+		List<ArticleVendu> liste = new ArrayList<ArticleVendu>();
 		try {
 
 			connection = getConnection();
@@ -162,13 +161,18 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO{
 					
 			ResultSet rs = stmt.executeQuery(sqlSelectByNoCategorie);
 			
+			
+			ArticleVendu art = null;
 			UtilisateurDAO utilisateurDAO = new UtilisateurDAOJdbcImpl();
 			CategorieDAO categorieDAO = new CategorieDAOJdbcImpl();
 			
-			if (rs.next()) {
-                articleVendu = new ArticleVendu ( rs.getInt("no_article"),rs.getString("nom_article"), rs.getString("description"), rs.getDate("date_debut_encheres"), rs.getDate("date_fin_encheres"), rs.getInt("prix_initial"),
-                        rs.getInt("prix_vente"), utilisateurDAO.selectByNoUtilisateur(rs.getInt("no_utilisateur")),  categorieDAO.selectByNoCategorie(rs.getInt("noCategorie")));
-            }
+			while (rs.next()) {
+                art = new ArticleVendu ( rs.getInt("no_article"),rs.getString("nom_article"), rs.getString("description"), rs.getDate("date_debut_encheres"), rs.getDate("date_fin_encheres"), rs.getInt("prix_initial"),
+                        rs.getInt("prix_vente"), utilisateurDAO.selectByNoUtilisateur(rs.getInt("no_utilisateur")),  categorieDAO.selectByNoCategorie(rs.getInt("no_categorie")));
+           
+                liste.add(art);
+			}
+			
 			
 			stmt.close();
 			connection.close();
@@ -176,7 +180,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO{
 			e.printStackTrace();
 		}
 
-		return articleVendu;
+		return liste;
 	}
 
 	public List<ArticleVendu> selectAll() {
@@ -199,7 +203,7 @@ public class ArticleVenduDAOJdbcImpl implements ArticleVenduDAO{
 				
 			try {
 				art = new ArticleVendu ( rs.getInt("no_article"),rs.getString("nom_article"), rs.getString("description"), rs.getDate("date_debut_encheres"), rs.getDate("date_fin_encheres"), rs.getInt("prix_initial"),
-				        rs.getInt("prix_vente"), utilisateurDAO.selectByNoUtilisateur(rs.getInt("no_utilisateur")),  categorieDAO.selectByNoCategorie(rs.getInt("noCategorie")));
+				        rs.getInt("prix_vente"), utilisateurDAO.selectByNoUtilisateur(rs.getInt("no_utilisateur")),  categorieDAO.selectByNoCategorie(rs.getInt("no_categorie")));
 			} catch (DALException e) {
 				e.printStackTrace();
 			}

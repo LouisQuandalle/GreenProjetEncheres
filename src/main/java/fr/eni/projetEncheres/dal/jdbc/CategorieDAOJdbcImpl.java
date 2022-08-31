@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import fr.eni.projetEncheres.bo.Categorie;
 import fr.eni.projetEncheres.dal.CategorieDAO;
@@ -64,6 +66,7 @@ private Connection connection;
 			String sqlUpdate = "UPDATE CATEGORIES SET libelle=? WHERE no_categorie=?";
 			PreparedStatement stmt = connection.prepareStatement(sqlUpdate);
 			stmt.setString(1, data.getLibelle());
+			stmt.setInt(2, data.getNoCategorie());
 
 			stmt.executeUpdate();
 
@@ -117,6 +120,36 @@ private Connection connection;
 		}
 
 		return categorie;
+	}
+	
+	
+	public List<Categorie> selectAll() {
+		List<Categorie> liste = new ArrayList<Categorie>();
+		connection = null;
+		Statement stmt = null;
+
+		try {
+			getConnection();
+			stmt = connection.createStatement();
+			ResultSet rs = stmt.executeQuery(
+					"SELECT no_categorie, libelle FROM CATEGORIES");
+
+			Categorie c = null;
+
+			while (rs.next()) {
+
+				c = new Categorie(rs.getInt("no_categorie"), rs.getString("libelle"));
+				liste.add(c);
+			}
+			connection.close();
+			stmt.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+
+		}
+
+		return liste;
 	}
 
 }
