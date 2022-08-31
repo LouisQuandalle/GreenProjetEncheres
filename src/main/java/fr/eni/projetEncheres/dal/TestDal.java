@@ -16,7 +16,7 @@ import fr.eni.projetEncheres.dal.jdbc.RetraitDAOJdbcImpl;
 import fr.eni.projetEncheres.dal.jdbc.EncheresDAOJdbcImpl;
 
 
-public class TestDalUtilisateur {
+public class TestDal {
 
 	public static void main(String[] args) throws DALException {
 

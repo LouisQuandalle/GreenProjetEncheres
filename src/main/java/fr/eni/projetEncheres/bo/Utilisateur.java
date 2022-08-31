@@ -2,9 +2,6 @@ package fr.eni.projetEncheres.bo;
 
 import java.util.List;
 
-import fr.eni.projetEncheres.dal.DALException;
-import fr.eni.projetEncheres.dal.UtilisateurDAO;
-
 public class Utilisateur {
 	
 
