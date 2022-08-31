@@ -1,7 +1,7 @@
 package fr.eni.projetEncheres.dal;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import fr.eni.projetEncheres.bo.ArticleVendu;
@@ -33,16 +33,31 @@ public class TestDal {
 	Utilisateur u2 = new Utilisateur("135.3 DB", "K7", "Olivier", "K7@gmail.com","0706060606", "rue de Liverpool", "63000", "Clermont", "cheztatayatouti");
 	Utilisateur u3 = new Utilisateur("Fan2Canards", "Fetus", "Nicolas", "FN@gmail.com","0606060606", "rue d'Edimbrough", "01000", "Bourg-en-Bresse", "titatitutu");
 
+
 	
-	Date dateEnchere1 = new Date(20220516L*1000);
-	Date dateVente1= new Date(2022-10-12);
+	String dateE1 = ("2022-09-12");
+	LocalDate dateEnc1 = LocalDate.parse(dateE1,DateTimeFormatter.ISO_DATE);
+	java.sql.Date dateEnchere1 = java.sql.Date.valueOf(dateEnc1);
 	
-	Date dateEnchere2= new Date(13-1-2023);
-	Date dateVente2= new Date(14-1-2023);
+	String dateV1= ("2022-10-12");
+	LocalDate dateVen1 = LocalDate.parse(dateV1,DateTimeFormatter.ISO_DATE);
+	java.sql.Date dateVente1 = java.sql.Date.valueOf(dateVen1);
 	
-	Date dateEnchere3= new Date(13-5-2023);
-	Date dateVente3= new Date(14-5-2023);
+	String dateE2= ("2023-01-13");
+	LocalDate dateEnc2 = LocalDate.parse(dateE2,DateTimeFormatter.ISO_DATE);
+	java.sql.Date dateEnchere2 = java.sql.Date.valueOf(dateEnc2);
 	
+	String dateV2= ("2023-01-14");
+	LocalDate dateVen2 = LocalDate.parse(dateV2,DateTimeFormatter.ISO_DATE);
+	java.sql.Date dateVente2 = java.sql.Date.valueOf(dateVen2);
+	
+	String dateE3= ("2023-05-15");
+	LocalDate dateEnc3 = LocalDate.parse(dateE3,DateTimeFormatter.ISO_DATE);
+	java.sql.Date dateEnchere3 = java.sql.Date.valueOf(dateEnc3);
+	
+	String dateV3= ("2023-05-16");
+	LocalDate dateVen3 = LocalDate.parse(dateV3,DateTimeFormatter.ISO_DATE);
+	java.sql.Date dateVente3 = java.sql.Date.valueOf(dateVen3);
 	
 	Categorie categorie1 = new Categorie(1, "informatique");
 	Categorie categorie2 = new Categorie(2, "meubles");
